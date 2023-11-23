@@ -1,0 +1,45 @@
+substitutions:
+  node_id: x
+
+esphome:
+  name: "hx711-scale-${node_id}"
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+# logger:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi:
+  domain: ""
+  ap:
+    ssid: "hx711-scale-${node_id}-cp"
+
+mdns:
+  disabled: true
+
+captive_portal:
+
+web_server:
+
+prometheus:
+
+sensor:
+  - platform: hx711
+    name: hx711_value
+    dout_pin: D7
+    clk_pin: D5
+    filters:
+      - calibrate_linear:
+          - -598000 -> 0
+          - -899000 -> 40
+          - -1304000 -> 80
+          - -1718000 -> 120
+    unit_of_measurement: lb
